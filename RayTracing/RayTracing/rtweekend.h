@@ -23,8 +23,8 @@ inline double degrees_to_radians(double degrees) {
 
 // Common Headers
 
-#include "ray.h"
-#include "vec3.h"
+//#include "ray.h"
+//#include "vec3.h"
 
 //inline double random_double() {
 //    // Returns a random real in [0,1).
