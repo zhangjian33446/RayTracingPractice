@@ -29,6 +29,14 @@
 //    }
 //}
 
+hittable_list earth() {
+    auto earth_texture = make_shared<image_texture>("C:/RayTracingPractice/RayTracing/Debug/earthmap.jpg");
+    auto earth_surface = make_shared<lambertian>(earth_texture);
+    auto globe = make_shared<sphere>(point3(0, 0, 0), 2, earth_surface);
+
+    return hittable_list(globe);
+}
+
 hittable_list two_perlin_spheres() {
     hittable_list objects;
 
@@ -155,9 +163,15 @@ int main()
         lookat = point3(0, 0, 0);
         vfov = 20.0;
         break;
-    default:
     case 3:
         world = two_perlin_spheres();
+        lookfrom = point3(13, 2, 3);
+        lookat = point3(0, 0, 0);
+        vfov = 20.0;
+        break;
+    default:
+    case 4:
+        world = earth();
         lookfrom = point3(13, 2, 3);
         lookat = point3(0, 0, 0);
         vfov = 20.0;
