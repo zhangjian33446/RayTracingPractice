@@ -1,1 +1,3 @@
 C:\RayTracingPractice\RayTracing\Debug\RayTracing.exe > C:\RayTracingPractice\RayTracing\Debug\image.ppm
+21
+52
