@@ -285,159 +285,177 @@ color ray_color(const ray& r, const color& background, const hittable& world, in
     //return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 }
 
-int main()
-{
-    // Image
-    /*const*/ auto aspect_ratio = 16.0 / 9.0;
-    /*const*/ int image_width = 400;
-    //const int image_height = static_cast<int>(image_width / aspect_ratio);
-    /*const*/ int samples_per_pixel = 100;
-    const int max_depth = 50;
+//int main()
+//{
+//    // Image
+//    /*const*/ auto aspect_ratio = 16.0 / 9.0;
+//    /*const*/ int image_width = 400;
+//    //const int image_height = static_cast<int>(image_width / aspect_ratio);
+//    /*const*/ int samples_per_pixel = 100;
+//    const int max_depth = 50;
+//
+//    // World
+//    hittable_list world;
+//    point3 lookfrom;
+//    point3 lookat;
+//    auto vfov = 40.0;
+//    auto aperture = 0.0;
+//    color background(0, 0, 0);
+//
+//    switch (0) {
+//    case 1:
+//        world = random_scene();
+//        background = color(0.70, 0.80, 1.00);
+//        lookfrom = point3(13, 2, 3);
+//        lookat = point3(0, 0, 0);
+//        vfov = 20.0;
+//        aperture = 0.1;
+//        break;
+//
+//    //default:
+//    case 2:
+//        world = two_spheres();
+//        background = color(0.70, 0.80, 1.00);
+//        lookfrom = point3(13, 2, 3);
+//        lookat = point3(0, 0, 0);
+//        vfov = 20.0;
+//        break;
+//    case 3:
+//        world = two_perlin_spheres();
+//        background = color(0.70, 0.80, 1.00);
+//        lookfrom = point3(13, 2, 3);
+//        lookat = point3(0, 0, 0);
+//        vfov = 20.0;
+//        break;
+//    case 4:
+//        world = earth();
+//        background = color(0.70, 0.80, 1.00);
+//        lookfrom = point3(13, 2, 3);
+//        lookat = point3(0, 0, 0);
+//        vfov = 20.0;
+//        break;
+//    case 5:
+//        world = simple_light();
+//        samples_per_pixel = 400;
+//        background = color(0, 0, 0);
+//        lookfrom = point3(26, 3, 6);
+//        lookat = point3(0, 2, 0);
+//        vfov = 20.0;
+//        break;
+//    case 6:
+//        world = cornell_box();
+//        aspect_ratio = 1.0;
+//        image_width = 600;
+//        samples_per_pixel = 200;
+//        background = color(0, 0, 0);
+//        lookfrom = point3(278, 278, -800);
+//        lookat = point3(278, 278, 0);
+//        vfov = 40.0;
+//        break;
+//    case 7:
+//        world = cornell_smoke();
+//        aspect_ratio = 1.0;
+//        image_width = 600;
+//        samples_per_pixel = 200;
+//        lookfrom = point3(278, 278, -800);
+//        lookat = point3(278, 278, 0);
+//        vfov = 40.0;
+//        break;
+//    default:
+//    case 8:
+//        world = final_scene();
+//        aspect_ratio = 1.0;
+//        image_width = 800;
+//        samples_per_pixel = 10000;
+//        background = color(0, 0, 0);
+//        lookfrom = point3(478, 278, -600);
+//        lookat = point3(278, 278, 0);
+//        vfov = 40.0;
+//        break;
+//    }
+//
+//    //auto world = random_scene();
+//
+//    //hittable_list world;
+//
+//    //auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
+//    ////auto material_center = make_shared<lambertian>(color(0.7, 0.3, 0.3));
+//    ////auto material_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
+//    ////auto material_center = make_shared<dielectric>(1.5);
+//    //auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
+//    //auto material_left = make_shared<dielectric>(1.5);
+//    //auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
+//
+//    //world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
+//    //world.add(make_shared<sphere>(point3(0.0, 0.0, -1.0), 0.5, material_center));
+//    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
+//    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), -0.45, material_left)); // 中空的玻璃球
+//    //world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
+//
+//    //auto R = cos(pi / 4);
+//    //hittable_list world;
+//
+//    //auto material_left = make_shared<lambertian>(color(0, 0, 1));
+//    //auto material_right = make_shared<lambertian>(color(1, 0, 0));
+//
+//    //world.add(make_shared<sphere>(point3(-R, 0, -1), R, material_left));
+//    //world.add(make_shared<sphere>(point3(R, 0, -1), R, material_right));
+//
+//    // Camera
+//    vec3 vup(0, 1, 0);
+//    auto dist_to_focus = 10.0;
+//    int image_height = static_cast<int>(image_width / aspect_ratio);
+//
+//    camera cam(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
+//    //point3 lookfrom(13, 2, 3);
+//    //point3 lookat(0, 0, 0);
+//    //vec3 vup(0, 1, 0);
+//    //auto dist_to_focus = 10.0;
+//    //auto aperture = 0.1;
+//    //int image_height = static_cast<int>(image_width / aspect_ratio);
+//
+//    //point3 lookfrom(3, 3, 2);
+//    //point3 lookat(0, 0, -1);
+//    //vec3 vup(0, 1, 0);
+//    //auto dist_to_focus = (lookfrom - lookat).length();
+//    //auto aperture = 2.0;
+//
+//    //camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0); // 看下小孔成像的原理
+//
+//    // Render
+//
+//    std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+//
+//    for (int j = image_height - 1; j >= 0; --j) {
+//        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+//        for (int i = 0; i < image_width; ++i) {
+//            color pixel_color(0, 0, 0);
+//            for (int s = 0; s < samples_per_pixel; ++s) {
+//                auto u = (i + random_double()) / (image_width - 1);
+//                auto v = (j + random_double()) / (image_height - 1);
+//                ray r = cam.get_ray(u, v);
+//                pixel_color += ray_color(r, background, world, max_depth);
+//            }
+//            write_color(std::cout, pixel_color, samples_per_pixel);
+//        }
+//    }
+//    std::cerr << "\nDone.\n";
+//}
 
-    // World
-    hittable_list world;
-    point3 lookfrom;
-    point3 lookat;
-    auto vfov = 40.0;
-    auto aperture = 0.0;
-    color background(0, 0, 0);
+#include <iostream>
+#include <iomanip>
+#include <math.h>
+#include <stdlib.h>
 
-    switch (0) {
-    case 1:
-        world = random_scene();
-        background = color(0.70, 0.80, 1.00);
-        lookfrom = point3(13, 2, 3);
-        lookat = point3(0, 0, 0);
-        vfov = 20.0;
-        aperture = 0.1;
-        break;
-
-    //default:
-    case 2:
-        world = two_spheres();
-        background = color(0.70, 0.80, 1.00);
-        lookfrom = point3(13, 2, 3);
-        lookat = point3(0, 0, 0);
-        vfov = 20.0;
-        break;
-    case 3:
-        world = two_perlin_spheres();
-        background = color(0.70, 0.80, 1.00);
-        lookfrom = point3(13, 2, 3);
-        lookat = point3(0, 0, 0);
-        vfov = 20.0;
-        break;
-    case 4:
-        world = earth();
-        background = color(0.70, 0.80, 1.00);
-        lookfrom = point3(13, 2, 3);
-        lookat = point3(0, 0, 0);
-        vfov = 20.0;
-        break;
-    case 5:
-        world = simple_light();
-        samples_per_pixel = 400;
-        background = color(0, 0, 0);
-        lookfrom = point3(26, 3, 6);
-        lookat = point3(0, 2, 0);
-        vfov = 20.0;
-        break;
-    case 6:
-        world = cornell_box();
-        aspect_ratio = 1.0;
-        image_width = 600;
-        samples_per_pixel = 200;
-        background = color(0, 0, 0);
-        lookfrom = point3(278, 278, -800);
-        lookat = point3(278, 278, 0);
-        vfov = 40.0;
-        break;
-    case 7:
-        world = cornell_smoke();
-        aspect_ratio = 1.0;
-        image_width = 600;
-        samples_per_pixel = 200;
-        lookfrom = point3(278, 278, -800);
-        lookat = point3(278, 278, 0);
-        vfov = 40.0;
-        break;
-    default:
-    case 8:
-        world = final_scene();
-        aspect_ratio = 1.0;
-        image_width = 800;
-        samples_per_pixel = 10000;
-        background = color(0, 0, 0);
-        lookfrom = point3(478, 278, -600);
-        lookat = point3(278, 278, 0);
-        vfov = 40.0;
-        break;
+int main() {
+    int N = 1000;
+    int inside_circle = 0;
+    for (int i = 0; i < N; i++) {
+        auto x = random_double(-1, 1);
+        auto y = random_double(-1, 1);
+        if (x * x + y * y < 1)
+            inside_circle++;
     }
-
-    //auto world = random_scene();
-
-    //hittable_list world;
-
-    //auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    ////auto material_center = make_shared<lambertian>(color(0.7, 0.3, 0.3));
-    ////auto material_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
-    ////auto material_center = make_shared<dielectric>(1.5);
-    //auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    //auto material_left = make_shared<dielectric>(1.5);
-    //auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
-
-    //world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
-    //world.add(make_shared<sphere>(point3(0.0, 0.0, -1.0), 0.5, material_center));
-    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
-    //world.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), -0.45, material_left)); // 中空的玻璃球
-    //world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
-
-    //auto R = cos(pi / 4);
-    //hittable_list world;
-
-    //auto material_left = make_shared<lambertian>(color(0, 0, 1));
-    //auto material_right = make_shared<lambertian>(color(1, 0, 0));
-
-    //world.add(make_shared<sphere>(point3(-R, 0, -1), R, material_left));
-    //world.add(make_shared<sphere>(point3(R, 0, -1), R, material_right));
-
-    // Camera
-    vec3 vup(0, 1, 0);
-    auto dist_to_focus = 10.0;
-    int image_height = static_cast<int>(image_width / aspect_ratio);
-
-    camera cam(lookfrom, lookat, vup, vfov, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
-    //point3 lookfrom(13, 2, 3);
-    //point3 lookat(0, 0, 0);
-    //vec3 vup(0, 1, 0);
-    //auto dist_to_focus = 10.0;
-    //auto aperture = 0.1;
-    //int image_height = static_cast<int>(image_width / aspect_ratio);
-
-    //point3 lookfrom(3, 3, 2);
-    //point3 lookat(0, 0, -1);
-    //vec3 vup(0, 1, 0);
-    //auto dist_to_focus = (lookfrom - lookat).length();
-    //auto aperture = 2.0;
-
-    //camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0); // 看下小孔成像的原理
-
-    // Render
-
-    std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
-    for (int j = image_height - 1; j >= 0; --j) {
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-        for (int i = 0; i < image_width; ++i) {
-            color pixel_color(0, 0, 0);
-            for (int s = 0; s < samples_per_pixel; ++s) {
-                auto u = (i + random_double()) / (image_width - 1);
-                auto v = (j + random_double()) / (image_height - 1);
-                ray r = cam.get_ray(u, v);
-                pixel_color += ray_color(r, background, world, max_depth);
-            }
-            write_color(std::cout, pixel_color, samples_per_pixel);
-        }
-    }
-    std::cerr << "\nDone.\n";
+    std::cout << std::fixed << std::setprecision(12);
+    std::cout << "Estimate of Pi = " << 4 * double(inside_circle) / N << '\n';
 }
