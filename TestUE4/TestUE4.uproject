@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{6FD28EAA-45D3-71EE-0005-79897E2BC833}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "TestUE4",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
